@@ -1,7 +1,6 @@
 package com.example.a2yn2ashya2y;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
