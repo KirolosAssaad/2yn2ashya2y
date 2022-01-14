@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".choicesActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/logo2"
+        android:layout_weight="1"
+        android:background="#2d423d"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="#2d423d">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textColor="#2d423d"
+            android:text="@string/Find"
+            android:drawableTop="@drawable/Find"
+            android:gravity="center_horizontal"
+            android:backgroundTint="#f0d0a9"
+
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textColor="#2d423d"
+            android:text="@string/Add"
+            android:drawableTop="@drawable/Add"
+            android:gravity="center_horizontal"
+            android:backgroundTint="#f0d0a9"
+
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textColor="#2d423d"
+            android:text="@string/Report"
+            android:drawableTop="@drawable/Report"
+            android:gravity="center_horizontal"
+            android:backgroundTint="#f0d0a9"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>
