@@ -20,7 +20,7 @@
                 android:layout_width="210dp"
                 android:layout_height="221dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/logo"></ImageView>
+                android:src="@drawable/logo"/>
 
         </FrameLayout>
 
@@ -46,7 +46,7 @@
                 android:paddingTop="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp"
-                ></EditText>
+                />
 
             <ImageView
                 android:id="@+id/usericon"
@@ -55,7 +55,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
                 android:src="@drawable/email"
-                ></ImageView>
+                />
+
 
         </RelativeLayout>
 
@@ -81,7 +82,7 @@
                 android:paddingTop="15dp"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="12sp"
-                ></EditText>
+                />
 
             <ImageView
                 android:id="@+id/passIcon"
@@ -90,13 +91,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="17dp"
                 android:src="@drawable/password"
-                ></ImageView>
+                />
 
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:layout_gravity="center"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="18.7dp"
@@ -108,8 +111,8 @@
             android:text="Login"
             android:textColor="#ffffff"
             android:textSize="12sp"
-            ></TextView>
+            />
+
 
     </LinearLayout>
-
 </RelativeLayout>
