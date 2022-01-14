@@ -10,6 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.2yn2ashya2y">
         <activity
+            android:name=".addItem"
+            android:exported="false" />
+        <activity
+            android:name=".ContactInfo"
+            android:exported="false" />
+        <activity
+            android:name=".Verification"
+            android:exported="false" />
+        <activity
+            android:name=".Items"
+            android:exported="false" />
+        <activity
+            android:name=".categories"
+            android:exported="false" />
+        <activity
             android:name=".choicesActivity"
             android:exported="false" />
         <activity
