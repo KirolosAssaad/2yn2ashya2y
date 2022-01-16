@@ -17,63 +17,6 @@
         android:focusableInTouchMode="true" >
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/yourInfo"
-            android:textSize="30sp"
-            android:background="#2d423d"
-            android:backgroundTint="#2d423d"
-            android:textColor="@color/white"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/name"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/ID"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/phoneNumber"
-                    android:inputType="text"
-                    android:maxLines="1" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/addImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.6"
-                android:onClick="selectImage"
-                android:clickable="true"
-                android:src="@drawable/plus"
-
-                />
-        </LinearLayout>
-
-
-
-        <TextView
             android:id="@+id/productInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,6 +34,35 @@
             android:background="@android:drawable/btn_dropdown"
             android:tag="@string/yourInfo"
             android:spinnerMode="dropdown"/>
+
+        <EditText
+            android:id="@+id/prodName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:maxLines="1"
+            />
+
+        <ImageView
+            android:id="@+id/addImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:onClick="selectImage"
+            android:clickable="true"
+            android:src="@drawable/plus"
+            />
+
+
+        <EditText
+            android:id="@+id/breifDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:lines="3"
+            android:maxLines="3"
+            />
+
         <TextView
             android:id="@+id/seqQues1"
             android:layout_width="match_parent"
@@ -104,7 +76,6 @@
             android:layout_height="wrap_content"
             android:enabled="false"
             android:inputType="text"
-
             />
 
         <TextView

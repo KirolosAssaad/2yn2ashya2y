@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,20 +17,36 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class addItem extends AppCompatActivity {
-    ImageView IVPreviewImage;
+    ImageView img;
+    Uri selectedImageUri;
     final int SELECT_PICTURE = 200;
+    String category;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-
         getSupportActionBar().setBackgroundDrawable( new ColorDrawable(Color.parseColor("#2D423D")));
 
-
-        IVPreviewImage = (ImageView) findViewById(R.id.addImage);
+        Bundle extras = this.getIntent().getExtras();
+        category = new String();
+        img = (ImageView) findViewById(R.id.addImage);
+        EditText name = (EditText) findViewById(R.id.prodName);
+        EditText description = (EditText) findViewById(R.id.breifDescription);
         TextView quest1 = (TextView) findViewById(R.id.seqQues1);
         EditText ans1 = (EditText) findViewById(R.id.seqAns1);
         TextView quest2 = (TextView) findViewById(R.id.seqQues2);
@@ -37,14 +54,13 @@ public class addItem extends AppCompatActivity {
         TextView quest3 = (TextView) findViewById(R.id.seqQues3);
         EditText ans3 = (EditText) findViewById(R.id.seqAns3);
         Button submitBut = (Button) findViewById(R.id.submitAddForm);
-
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Categories2, android.R.layout.simple_spinner_item);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        IVPreviewImage.setOnClickListener(new View.OnClickListener() {
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageChooser();
@@ -64,6 +80,13 @@ public class addItem extends AppCompatActivity {
                 switch (i){
                     case 0:
                     {
+                        category = "";
+                        name.setHint("");
+                        name.setEnabled(false);
+
+                        description.setHint("");
+                        description.setEnabled(false);
+
                         quest1.setText("");
                         quest1.setEnabled(false);
                         quest1.setTextColor(getResources().getColor(R.color.white));
@@ -91,11 +114,23 @@ public class addItem extends AppCompatActivity {
                         submitBut.setEnabled(false);
                         submitBut.setText("");
                         submitBut.setBackgroundColor(Color.WHITE);
+
+                        img.setVisibility(View.INVISIBLE);
+                        img.setEnabled(false);
+
                         break;
 
                     }
                     case 1:
                     {
+                        category = "IDs";
+
+                        name.setHint("First Name on ID");
+                        name.setEnabled(true);
+
+                        description.setHint("Write a brief Description about the Product");
+                        description.setEnabled(true);
+
                         quest1.setText("What is the name on the ID?");
                         quest1.setEnabled(true);
                         quest1.setTextColor(getResources().getColor(R.color.black));
@@ -124,10 +159,21 @@ public class addItem extends AppCompatActivity {
                         submitBut.setText(R.string.submit);
                         submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
 
+                        img.setVisibility(View.VISIBLE);
+                        img.setEnabled(true);
+
+
                         break;
                     }
                     case 2:
                     {
+                        category = "Keys";
+                        name.setHint("Product Name");
+                        name.setEnabled(true);
+
+                        description.setHint("Write a brief Description about the Product");
+                        description.setEnabled(true);
+
                         quest1.setText("How many keys does it have?");
                         quest1.setEnabled(true);
                         quest1.setTextColor(getResources().getColor(R.color.black));
@@ -156,10 +202,20 @@ public class addItem extends AppCompatActivity {
                         submitBut.setText(R.string.submit);
                         submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
 
+                        img.setVisibility(View.VISIBLE);
+                        img.setEnabled(true);
+
                         break;
                     }
                     case 3:
                     {
+                        category = "tech";
+                        name.setHint("Product Name");
+                        name.setEnabled(true);
+
+                        description.setHint("Write a brief Description about the Product");
+                        description.setEnabled(true);
+
                         quest1.setText("What is the model of the Product?");
                         quest1.setEnabled(true);
                         quest1.setTextColor(getResources().getColor(R.color.black));
@@ -188,10 +244,20 @@ public class addItem extends AppCompatActivity {
                         submitBut.setText(R.string.submit);
                         submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
 
+                        img.setVisibility(View.VISIBLE);
+                        img.setEnabled(true);
+
                         break;
                     }
                     default:
                     {
+                        category = "other";
+                        name.setHint("Product Name");
+                        name.setEnabled(true);
+
+                        description.setHint("Write a brief Description about the Product");
+                        description.setEnabled(true);
+
                         quest1.setText("What is the Product?");
                         quest1.setEnabled(true);
                         quest1.setTextColor(getResources().getColor(R.color.black));
@@ -220,6 +286,9 @@ public class addItem extends AppCompatActivity {
                         submitBut.setText(R.string.submit);
                         submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
 
+                        img.setVisibility(View.VISIBLE);
+                        img.setEnabled(true);
+
                         break;
                     }
                 }
@@ -229,7 +298,63 @@ public class addItem extends AppCompatActivity {
         submitBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String prodName = name.getText().toString();
+                String desc = description.getText().toString();
+                String q1 = ans1.getText().toString();
+                String q2 = ans1.getText().toString();
+                String q3 = ans1.getText().toString();
+                String imageString = selectedImageUri.toString();
+
+                if(prodName.equals("") || q1.equals("") || desc.equals("") ||
+                        q2.equals("") || q3.equals("") || imageString.equals(""))
+                {
+                    Toast.makeText(addItem.this, "Please fill out all the questions",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                else
+                {
+                    try {
+                        URL url = new URL("http://192.168.1.30:3000/addObject");
+                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                        con.setRequestMethod("POST");
+                        con.setDoInput(true);
+                        Log.println(Log.DEBUG, prodName, "PRODUCT NAME");
+                        Log.println(Log.DEBUG, desc, "DESCRIPTION");
+                        Log.println(Log.DEBUG, imageString, "IMAGE PATH");
+                        Log.println(Log.DEBUG, extras.getString("userID"), "SID");
+                        Log.println(Log.DEBUG, category, "CATEGORY");
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                                new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
+                        writer.write(("name=" + prodName + "&description=" + desc+
+                                "&image=" + imageString+ "&SID=" + extras.getString("userID")+
+                                "&category=" +category));
+                        writer.flush();
+                        writer.close();
+
+                        con.getResponseCode();
+
+                        URL url2 = new URL("http://192.168.1.30:3000/addAnswer");
+                        HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+                        con2.setRequestMethod("POST");
+                        con2.setDoInput(true);
+                        BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
+                                new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
+                        writer2.write(("answer1=" + q1 + "&answer1=" + q2+ "&answer3=" + q3));
+                        writer2.flush();
+                        writer2.close();
+                        con2.getResponseCode();
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+
+
                 Intent intent = new Intent(addItem.this,choicesActivity.class);
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -258,10 +383,10 @@ public class addItem extends AppCompatActivity {
             // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
                 // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
+                selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
                     // update the preview image in the layout
-                    IVPreviewImage.setImageURI(selectedImageUri);
+                    img.setImageURI(selectedImageUri);
                 }
             }
         }
