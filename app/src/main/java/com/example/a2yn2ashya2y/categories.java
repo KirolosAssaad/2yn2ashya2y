@@ -27,6 +27,7 @@ public class categories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#153F27"));
+        Bundle extras = getIntent().getExtras();
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         getSupportActionBar().setTitle("Categories");
 
@@ -40,9 +41,16 @@ public class categories extends AppCompatActivity {
         list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(categories.this, Items.class);
-                intent.putExtra("Categories", Categories[i]); //pass the category name
-                startActivity(intent);
+                if(extras.getString("action").equals("Find")) {
+                    Intent intent = new Intent(categories.this, Items.class);
+                    intent.putExtra("Categories", Categories[i]); //pass the category name
+                    startActivity(intent);
+                }
+                else if(extras.getString("action").equals("Report")) {
+                    Intent intent = new Intent(categories.this, report.class);
+                    intent.putExtra("Categories", Categories[i]); //pass the category name
+                    startActivity(intent);
+                }
             }
         });
 

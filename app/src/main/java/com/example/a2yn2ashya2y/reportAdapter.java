@@ -20,15 +20,15 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.InputStream;
 
-public class ItemsAdapter extends ArrayAdapter<String> {
+public class reportAdapter extends ArrayAdapter<String> {
 
     String[] ItemsName;
     int Images;
     Context context;
 
     //constructor to initialize value
-    public ItemsAdapter(Context context, String[] genres, int images) {
-        super(context, R.layout.itemlist);
+    public reportAdapter(Context context, String[] genres, int images) {
+        super(context, R.layout.reportitem);
         this.ItemsName = genres;
         this.Images = images;
         this.context = context;
@@ -52,7 +52,7 @@ public class ItemsAdapter extends ArrayAdapter<String> {
 
         //check if the view is being reused
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.itemlist,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.reportitem,parent,false);
 
             //data population
             holder.item_image = (ImageView) convertView.findViewById(R.id.itemImage);

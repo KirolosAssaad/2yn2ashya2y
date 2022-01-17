@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Items extends AppCompatActivity {
+public class report extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class Items extends AppCompatActivity {
         String CategoryName = getIntent().getExtras().getString("Categories");
         getSupportActionBar().setTitle(CategoryName);
 
-        ListView list_view = (ListView) findViewById(R.id.itemsList);
+        ListView list_view = (ListView) findViewById(R.id.reportItemsList);
 
         String[] itemName = null;
         int itemImage;
@@ -116,14 +116,14 @@ public class Items extends AppCompatActivity {
                 throw new IllegalStateException("Unexpected value: " + CategoryName);
         }
 
-        ItemsAdapter adapter = new ItemsAdapter(Items.this, itemName, itemImage);
-        list_view.setAdapter(adapter);
+                reportAdapter adapter = new reportAdapter(report.this, itemName, itemImage);
+                list_view.setAdapter(adapter);
 
 
         list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(Items.this, Verification.class);
+                Intent intent = new Intent(report.this, choicesActivity.class);
                 intent.putExtra("Categories", CategoryName); //pass the category name
                 startActivity(intent);
             }

@@ -29,6 +29,19 @@ public class choicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(choicesActivity.this,categories.class);
+                extras.putString("action", "Find");
+                intent.putExtras(extras);
+                startActivity(intent);
+
+            }
+        });
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(choicesActivity.this,categories.class);
+                extras.putString("action", "Report");
+                intent.putExtras(extras);
                 startActivity(intent);
 
             }
