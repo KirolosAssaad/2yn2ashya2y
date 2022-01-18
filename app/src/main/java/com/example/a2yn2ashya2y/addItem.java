@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +43,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.Locale;
+
 public class addItem extends AppCompatActivity {
     ImageView img;
     Uri selectedImageUri;
@@ -140,6 +143,7 @@ public class addItem extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("SID");
+                        ans2.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -303,9 +307,9 @@ public class addItem extends AppCompatActivity {
 
                         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                                 new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
-                        writer.write(("name=" + name + "&description=" + "x"+
+                        writer.write("name=" + "name" + "&description=" + "x"+
                                 "&image=" + imgPath + "&SID=" + extras.getString("userID")+
-                                "&category=" +category));
+                                "&category=" +category);
                         writer.flush();
                         writer.close();
 
@@ -317,7 +321,7 @@ public class addItem extends AppCompatActivity {
                         con2.setDoInput(true);
                         BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
                                 new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
-                        writer2.write(("answer1=" + q1 + "&answer2=" + q2+ "&answer3=" + "x"));
+                        writer2.write(("answer1=" + q1.toLowerCase() + "&answer2=" + q2.toLowerCase()+ "&answer3=" + "x"));
                         writer2.flush();
                         writer2.close();
                         con2.getResponseCode();

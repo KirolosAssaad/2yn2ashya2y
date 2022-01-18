@@ -25,6 +25,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class Verification extends AppCompatActivity {
     EditText ans1;
@@ -171,8 +172,8 @@ public class Verification extends AppCompatActivity {
                     Log.println(Log.DEBUG, answer2, "ans2");
 
 
-                    if(ans1.getText().toString().equals(answer1) &&
-                            ans2.getText().toString().equals(answer2))
+                    if(ans1.getText().toString().toLowerCase().equals(answer1) &&
+                            ans2.getText().toString().toLowerCase().equals(answer2))
                     {
                         URL url2 = new URL("http://192.168.1.30:3000/markFound");
                         HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
