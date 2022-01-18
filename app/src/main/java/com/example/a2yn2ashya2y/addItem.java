@@ -2,12 +2,18 @@ package com.example.a2yn2ashya2y;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,15 +25,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 public class addItem extends AppCompatActivity {
     ImageView img;
     Uri selectedImageUri;
@@ -63,7 +77,9 @@ public class addItem extends AppCompatActivity {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageChooser();
+                Intent Intent= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(Intent,1888);
+//                imageChooser();
             }
         });
 
@@ -209,7 +225,7 @@ public class addItem extends AppCompatActivity {
                     }
                     case 3:
                     {
-                        category = "tech";
+                        category = "Technology";
                         name.setHint("Product Name");
                         name.setEnabled(true);
 
@@ -251,7 +267,7 @@ public class addItem extends AppCompatActivity {
                     }
                     default:
                     {
-                        category = "other";
+                        category = "Other";
                         name.setHint("Product Name");
                         name.setEnabled(true);
 
@@ -301,12 +317,12 @@ public class addItem extends AppCompatActivity {
                 String prodName = name.getText().toString();
                 String desc = description.getText().toString();
                 String q1 = ans1.getText().toString();
-                String q2 = ans1.getText().toString();
-                String q3 = ans1.getText().toString();
-                String imageString = selectedImageUri.toString();
+                String q2 = ans2.getText().toString();
+                String q3 = ans3.getText().toString();
+//                String imageString = selectedImageUri.toString();
 
                 if(prodName.equals("") || q1.equals("") || desc.equals("") ||
-                        q2.equals("") || q3.equals("") || imageString.equals(""))
+                        q2.equals("") || q3.equals("")  )
                 {
                     Toast.makeText(addItem.this, "Please fill out all the questions",
                             Toast.LENGTH_SHORT).show();
@@ -316,19 +332,55 @@ public class addItem extends AppCompatActivity {
                 else
                 {
                     try {
+                        URL url4 = new URL("http://192.168.1.30:3000/getLastObj");
+                        HttpURLConnection con4 = (HttpURLConnection) url4.openConnection();
+                        con4.setRequestMethod("POST");
+                        con4.setDoInput(true);
+                        BufferedWriter writer4 = new BufferedWriter(new OutputStreamWriter(
+                                new BufferedOutputStream(con4.getOutputStream()), StandardCharsets.UTF_8));
+                        writer4.write(("category=" + category));
+                        writer4.flush();
+                        writer4.close();
+
+                        BufferedReader in = new BufferedReader(new InputStreamReader(con4.getInputStream()));
+                        String decodedString = in.readLine();
+                        con4.getResponseCode();
+
+                        JSONArray jarr = new JSONArray(decodedString);
+
+                        Integer imageNumber = 0;
+                        Log.println(Log.DEBUG,decodedString,"decodedString");
+                        if(decodedString.equals("[]")) {
+                            imageNumber = 0;
+                        }
+                        else
+                        {
+                            JSONObject obj = jarr.getJSONObject(jarr.length() - 1);
+                            String x = obj.getString("image");
+                            String[] arrOfStr = x.split(category, 2);
+                            imageNumber = Integer.parseInt(arrOfStr[arrOfStr.length - 1]);
+
+                        }
+
+
+
+
                         URL url = new URL("http://192.168.1.30:3000/addObject");
                         HttpURLConnection con = (HttpURLConnection) url.openConnection();
                         con.setRequestMethod("POST");
                         con.setDoInput(true);
                         Log.println(Log.DEBUG, prodName, "PRODUCT NAME");
                         Log.println(Log.DEBUG, desc, "DESCRIPTION");
-                        Log.println(Log.DEBUG, imageString, "IMAGE PATH");
+//                        Log.println(Log.DEBUG, imageString, "IMAGE PATH");
                         Log.println(Log.DEBUG, extras.getString("userID"), "SID");
                         Log.println(Log.DEBUG, category, "CATEGORY");
+                        Bitmap bitmap=((BitmapDrawable)img.getDrawable()).getBitmap();
+                        String imgPath = saveToInternalStorage(bitmap,(category+(imageNumber+1)))+"/"+ category+(imageNumber+1);
+
                         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                                 new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
                         writer.write(("name=" + prodName + "&description=" + desc+
-                                "&image=" + imageString+ "&SID=" + extras.getString("userID")+
+                                "&image=" + imgPath + "&SID=" + extras.getString("userID")+
                                 "&category=" +category));
                         writer.flush();
                         writer.close();
@@ -341,7 +393,7 @@ public class addItem extends AppCompatActivity {
                         con2.setDoInput(true);
                         BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
                                 new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
-                        writer2.write(("answer1=" + q1 + "&answer1=" + q2+ "&answer3=" + q3));
+                        writer2.write(("answer1=" + q1 + "&answer2=" + q2+ "&answer3=" + q3));
                         writer2.flush();
                         writer2.close();
                         con2.getResponseCode();
@@ -360,36 +412,45 @@ public class addItem extends AppCompatActivity {
         });
     }
 
+    private String saveToInternalStorage(Bitmap bitmapImage, String fileName){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,fileName);
 
-    void imageChooser() {
-
-        // create an instance of the
-        // intent of the type image
-        Intent i = new Intent();
-        i.setType("image/*");
-        i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+        if(requestCode == 1888) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            Log.println(Log.DEBUG, bitmap.toString(), "the bitmap");
+            img.setImageBitmap(bitmap);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
 
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    img.setImageURI(selectedImageUri);
-                }
-            }
-        }
+        } }
     }
 
 }

@@ -22,12 +22,14 @@
         android:layout_weight="1"
         />
     <Button
+        android:id="@+id/report"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0"
         android:text="@string/Report"
         android:backgroundTint="#2d423d"
         android:src="@drawable/arrow"
+        android:paddingRight="15dp"
         />
 
 </LinearLayout>

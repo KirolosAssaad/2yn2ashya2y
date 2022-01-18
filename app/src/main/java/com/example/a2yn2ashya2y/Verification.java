@@ -6,19 +6,35 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-public class Verification extends AppCompatActivity {
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
+public class Verification extends AppCompatActivity {
+    EditText ans1;
+    EditText ans2;
+    EditText ans3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification);
+        Bundle extras = this.getIntent().getExtras();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#153F27"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         getSupportActionBar().setTitle("Verification");
@@ -26,11 +42,11 @@ public class Verification extends AppCompatActivity {
         String catengoryName = getIntent().getExtras().getString("Categories");
 
         TextView quest1 = (TextView) findViewById(R.id.seqQues1);
-        EditText ans1 = (EditText) findViewById(R.id.seqAns1);
+         ans1 = (EditText) findViewById(R.id.seqAns1);
         TextView quest2 = (TextView) findViewById(R.id.seqQues2);
-        EditText ans2 = (EditText) findViewById(R.id.seqAns2);
+         ans2 = (EditText) findViewById(R.id.seqAns2);
         TextView quest3 = (TextView) findViewById(R.id.seqQues3);
-        EditText ans3 = (EditText) findViewById(R.id.seqAns3);
+         ans3 = (EditText) findViewById(R.id.seqAns3);
         Button submitBut = (Button) findViewById(R.id.submitAddForm);
 
         switch (catengoryName){
@@ -158,8 +174,77 @@ public class Verification extends AppCompatActivity {
         submitBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Verification.this,ContactInfo.class);
-                startActivity(intent);
+
+                String ID = getIntent().getExtras().getString("objID");
+
+                try{
+                    URL url = new URL("http://192.168.1.30:3000/answerFetch");
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                            new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
+                    writer.write(("objID="+ID));
+                    writer.flush();
+                    writer.close();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String decodedString = in.readLine();
+                    con.getResponseCode();
+                    JSONArray jarr = new JSONArray(decodedString);
+                    Log.println(Log.DEBUG, jarr.getJSONObject(0).toString(), "VERIFICATION ANSWERS");
+                    JSONObject jObj = jarr.getJSONObject(0);
+                    String answer1  = jObj.getString("answer1");
+                    String answer2  = jObj.getString("answer2");
+                    String answer3  = jObj.getString("answer3");
+
+                    Log.println(Log.DEBUG, ans1.getText().toString(), "quest1");
+                    Log.println(Log.DEBUG, ans2.getText().toString(), "quest2");
+                    Log.println(Log.DEBUG, ans3.getText().toString(), "quest3");
+                    Log.println(Log.DEBUG, answer1, "ans1");
+                    Log.println(Log.DEBUG, answer2, "ans2");
+                    Log.println(Log.DEBUG, answer3, "ans3");
+
+
+                    if(ans1.getText().toString().equals(answer1) &&
+                            ans2.getText().toString().equals(answer2) &&
+                            ans3.getText().toString().equals(answer3))
+                    {
+                        URL url2 = new URL("http://192.168.1.30:3000/markFound");
+                        HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+                        con2.setRequestMethod("POST");
+                        con2.setDoOutput(true);
+                        BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
+                                new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
+                        writer2.write(("objID="+ID));
+                        writer2.flush();
+                        writer2.close();
+
+                        con2.getResponseCode();
+
+                        Intent intent = new Intent(Verification.this,ContactInfo.class);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+
+                    }
+                    else
+                    {
+                        Toast.makeText(Verification.this, "Answers Incorrect",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+
+
+
+
+
+
             }
         });
 

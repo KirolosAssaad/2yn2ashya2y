@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -23,102 +22,69 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class report extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_items);
+        setContentView(R.layout.activity_report);
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#153F27"));
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         String CategoryName = getIntent().getExtras().getString("Categories");
         getSupportActionBar().setTitle(CategoryName);
-
         ListView list_view = (ListView) findViewById(R.id.reportItemsList);
 
         String[] itemName = null;
+
         int itemImage;
 
-//        try {
-//            URL url = new URL("http://192.168.1.30:3000/objectFetch");
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//            con.setRequestMethod("POST");
-//            con.setDoOutput(true);
-//            con.setDoInput(true);
-//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-//                    new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
-//            writer.write(("category="+CategoryName));
-//            writer.flush();
-//            writer.close();
-//
-//            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//            String decodedString = in.readLine();
-//            con.getResponseCode();
-//
-//            JSONArray jArray = new JSONArray(decodedString);
-//            Log.println(Log.DEBUG, decodedString, "QUERY RESULT2");
-//            Log.println(Log.DEBUG, jArray.toString(), "QUERY RESULT");
+        try {
+            URL url = new URL("http://192.168.1.30:3000/foundFetch");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
+            writer.write(("category="+CategoryName));
+            writer.flush();
+            writer.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String decodedString = in.readLine();
+            con.getResponseCode();
+
+            JSONArray jArray = new JSONArray(decodedString);
+            Log.println(Log.DEBUG, decodedString, "QUERY RESULT2");
+            Log.println(Log.DEBUG, jArray.toString(), "QUERY RESULT");
 //            itemName = new String[jArray.length()];
-//            itemImage = new String[jArray.length()];
 //            for(int i=0;i<itemName.length;i++)
 //            {
 //                JSONObject jObj = jArray.getJSONObject(i);
 //                Log.println(Log.DEBUG, jObj.getString("name"), "name");
-//                Log.println(Log.DEBUG, jObj.getString("image"), "image");
 //
 //                itemName[i] = jObj.getString("name");
-//                itemImage[i] = jObj.getString("image");
 //
 //
 //            }
-//
-//            Log.println(Log.DEBUG, decodedString, "Query Result");
-//            if(decodedString.equals("[]"))
-//            {
-//                Toast.makeText(Items.this, "NO ITEMS FOUND",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//            else {
-//
-//                ItemsAdapter adapter = new ItemsAdapter(Items.this, itemName, itemImage);
-//                list_view.setAdapter(adapter);
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
 
+            Log.println(Log.DEBUG, decodedString, "Query Result");
+            if(decodedString.equals("[]"))
+            {
+                Toast.makeText(report.this, "NO ITEMS FOUND",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
 
-        switch (CategoryName){
-            case "IDs":
-                itemName = getResources().getStringArray(R.array.IDS);
-                itemImage = R.drawable.idpic;
-                break;
-            case "Keys":
-                itemName = getResources().getStringArray(R.array.Keys);
-                itemImage = R.drawable.key;
-                break;
-            case "Technology":
-                itemName = getResources().getStringArray(R.array.Technology);
-                itemImage = R.drawable.tech;
-                break;
-            case "Other":
-                itemName = getResources().getStringArray(R.array.Other);
-                itemImage = R.drawable.other;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + CategoryName);
-        }
-
-                reportAdapter adapter = new reportAdapter(report.this, itemName, itemImage);
+                reportAdapter adapter = new reportAdapter(report.this, jArray);
                 list_view.setAdapter(adapter);
-
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

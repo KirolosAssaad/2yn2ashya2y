@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class categories extends AppCompatActivity {
 
@@ -43,12 +41,17 @@ public class categories extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(extras.getString("action").equals("Find")) {
                     Intent intent = new Intent(categories.this, Items.class);
-                    intent.putExtra("Categories", Categories[i]); //pass the category name
+//                    intent.putExtra("Categories", Categories[i]); //pass the category name
+                    extras.putString("Categories", Categories[i]);
+                    intent.putExtras(extras);
+
                     startActivity(intent);
                 }
                 else if(extras.getString("action").equals("Report")) {
                     Intent intent = new Intent(categories.this, report.class);
-                    intent.putExtra("Categories", Categories[i]); //pass the category name
+                    extras.putString("Categories", Categories[i]);
+                    intent.putExtras(extras);
+//                    intent.putExtra("Categories", Categories[i]); //pass the category name
                     startActivity(intent);
                 }
             }

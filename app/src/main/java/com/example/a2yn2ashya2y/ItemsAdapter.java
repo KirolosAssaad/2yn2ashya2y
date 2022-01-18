@@ -16,27 +16,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class ItemsAdapter extends ArrayAdapter<String> {
 
-    String[] ItemsName;
-    int Images;
+    JSONArray allObjs;
     Context context;
 
     //constructor to initialize value
-    public ItemsAdapter(Context context, String[] genres, int images) {
+    public ItemsAdapter(Context context, JSONArray allObjs) {
         super(context, R.layout.itemlist);
-        this.ItemsName = genres;
-        this.Images = images;
+        this.allObjs = allObjs;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return ItemsName.length;
+        return allObjs.length();
     }
 
     // reduce number of calling findViewById() -> speed up performance
@@ -64,8 +66,23 @@ public class ItemsAdapter extends ArrayAdapter<String> {
         }
 
 
-        holder.item_name.setText(ItemsName[position]);
-        holder.item_image.setImageResource(Images);
+        JSONObject object = new JSONObject();
+
+
+        try{
+            object = allObjs.getJSONObject(position);
+            Log.println(Log.DEBUG, object.getString("name"), "Name of object");
+            Log.println(Log.DEBUG, object.getString("image"), "Image Path");
+            String x = object.getString("image");
+            File f=new File(x);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            holder.item_image.setImageBitmap(b);
+            holder.item_name.setText(object.getString("name"));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
 
         //sets data
