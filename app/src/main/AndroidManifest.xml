@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.2yn2ashya2y">
         <activity
+            android:name=".Notification"
+            android:exported="false" />
+        <activity
             android:name=".report"
             android:exported="false" />
         <activity

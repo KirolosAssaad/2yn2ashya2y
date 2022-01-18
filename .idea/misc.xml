@@ -3,14 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/drawable-anydpi/notification.xml" value="0.2578125" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/drawable-anydpi/plus.xml" value="0.2324074074074074" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_add_item.xml" value="0.33" />
+        <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_choices.xml" value="0.2078804347826087" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_contact_info.xml" value="0.3625" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_items.xml" value="0.2210144927536232" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_main.xml" value="0.2115036231884058" />
+        <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_notification.xml" value="0.30572916666666666" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_report.xml" value="0.3625" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/activity_verification.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/itemlist.xml" value="0.2" />
+        <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/notificationitem.xml" value="0.32447916666666665" />
         <entry key="..\:/Users/kirol/AndroidStudioProjects/2yn2ashya2y/app/src/main/res/layout/reportitem.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_add_item.xml" value="0.14994934143870314" />
         <entry key="app/src/main/res/layout/activity_categories.xml" value="0.1" />

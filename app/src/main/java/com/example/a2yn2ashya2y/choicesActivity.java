@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 public class choicesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,17 @@ public class choicesActivity extends AppCompatActivity {
         Button report = (Button) findViewById(R.id.report);
 
         Bundle extras = this.getIntent().getExtras();
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { //when clicking it go to FAB
+                Intent intent = new Intent(getApplication(), Notification.class);
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
+
 
         find.setOnClickListener(new View.OnClickListener() {
             @Override

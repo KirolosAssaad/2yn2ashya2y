@@ -105,6 +105,7 @@ public class addItem extends AppCompatActivity {
 
                         ans1.setEnabled(false);
                         ans1.setHint("");
+                        ans1.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         quest2.setText("");
                         quest2.setEnabled(false);
@@ -113,6 +114,7 @@ public class addItem extends AppCompatActivity {
 
                         ans2.setEnabled(false);
                         ans2.setHint("");
+                        ans2.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         submitBut.setEnabled(false);
                         submitBut.setText("");
@@ -132,6 +134,7 @@ public class addItem extends AppCompatActivity {
                         quest1.setEnabled(true);
                         quest1.setTextColor(getResources().getColor(R.color.black));
                         quest1.setBackgroundColor(getResources().getColor(R.color.white));
+                        ans1.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         ans1.setEnabled(true);
                         ans1.setHint("First Name on ID");
@@ -166,6 +169,7 @@ public class addItem extends AppCompatActivity {
 
                         ans1.setEnabled(true);
                         ans1.setHint("Number of keys");
+                        ans1.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                         quest2.setText("Does it have a keychain? If so, what is on it");
                         quest2.setEnabled(true);
@@ -174,6 +178,7 @@ public class addItem extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("Keychain");
+                        ans2.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -195,6 +200,7 @@ public class addItem extends AppCompatActivity {
 
                         ans1.setEnabled(true);
                         ans1.setHint("Product Model");
+                        ans1.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         quest2.setText("Does it have any unique features?");
                         quest2.setEnabled(true);
@@ -203,6 +209,7 @@ public class addItem extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("Unique Features");
+                        ans2.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -224,6 +231,7 @@ public class addItem extends AppCompatActivity {
 
                         ans1.setEnabled(true);
                         ans1.setHint("Product Model");
+                        ans1.setInputType(InputType.TYPE_CLASS_TEXT);
 
                         quest2.setText("hat is the color of the product?");
                         quest2.setEnabled(true);
@@ -232,6 +240,7 @@ public class addItem extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("Product Color");
+                        ans2.setInputType(InputType.TYPE_CLASS_TEXT);
 
 
                         submitBut.setEnabled(true);

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".choicesActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#2d423d"
+    >
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,6 +16,17 @@
         android:layout_weight="1"
         android:background="#2d423d"/>
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#f0d0a9"
+        app:fabSize="normal"
+        android:layout_gravity="end"
+        android:layout_marginEnd="30dp"
+        app:srcCompat="@drawable/notification" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +44,6 @@
             android:drawableTop="@drawable/find"
             android:gravity="center_horizontal"
             android:backgroundTint="#f0d0a9"
-
             />
         <Button
             android:id="@+id/add"
