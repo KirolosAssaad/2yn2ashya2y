@@ -90,7 +90,7 @@ public class reportAdapter extends ArrayAdapter<String> {
             File f=new File(x);
             Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
             holder.item_image.setImageBitmap(b);
-            holder.item_name.setText(object.getString("Name"));
+            holder.item_name.setText(object.getString("category")+" "+(position+1));
         }
         catch(Exception e)
         {

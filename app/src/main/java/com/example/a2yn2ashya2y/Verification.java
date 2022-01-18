@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 public class Verification extends AppCompatActivity {
     EditText ans1;
     EditText ans2;
-    EditText ans3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +44,6 @@ public class Verification extends AppCompatActivity {
          ans1 = (EditText) findViewById(R.id.seqAns1);
         TextView quest2 = (TextView) findViewById(R.id.seqQues2);
          ans2 = (EditText) findViewById(R.id.seqAns2);
-        TextView quest3 = (TextView) findViewById(R.id.seqQues3);
-         ans3 = (EditText) findViewById(R.id.seqAns3);
         Button submitBut = (Button) findViewById(R.id.submitAddForm);
 
         switch (catengoryName){
@@ -67,13 +64,6 @@ public class Verification extends AppCompatActivity {
                     ans2.setEnabled(true);
                     ans2.setHint("SID");
 
-                    quest3.setText("When was the ID found?");
-                    quest3.setEnabled(true);
-                    quest3.setTextColor(getResources().getColor(R.color.black));
-                    quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                    ans3.setEnabled(true);
-                    ans3.setHint("When");
 
                     submitBut.setEnabled(true);
                     submitBut.setText(R.string.submit);
@@ -95,14 +85,6 @@ public class Verification extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("Keychain");
-
-                        quest3.setText("When were the keys found?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -126,13 +108,6 @@ public class Verification extends AppCompatActivity {
                         ans2.setEnabled(true);
                         ans2.setHint("Unique Features");
 
-                        quest3.setText("When was the product found?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -155,14 +130,6 @@ public class Verification extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("Product Color");
-
-                        quest3.setText("When was the product lost?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -197,19 +164,15 @@ public class Verification extends AppCompatActivity {
                     JSONObject jObj = jarr.getJSONObject(0);
                     String answer1  = jObj.getString("answer1");
                     String answer2  = jObj.getString("answer2");
-                    String answer3  = jObj.getString("answer3");
 
                     Log.println(Log.DEBUG, ans1.getText().toString(), "quest1");
                     Log.println(Log.DEBUG, ans2.getText().toString(), "quest2");
-                    Log.println(Log.DEBUG, ans3.getText().toString(), "quest3");
                     Log.println(Log.DEBUG, answer1, "ans1");
                     Log.println(Log.DEBUG, answer2, "ans2");
-                    Log.println(Log.DEBUG, answer3, "ans3");
 
 
                     if(ans1.getText().toString().equals(answer1) &&
-                            ans2.getText().toString().equals(answer2) &&
-                            ans3.getText().toString().equals(answer3))
+                            ans2.getText().toString().equals(answer2))
                     {
                         URL url2 = new URL("http://192.168.1.30:3000/markFound");
                         HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();

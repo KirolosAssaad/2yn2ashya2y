@@ -48,25 +48,22 @@ public class addItem extends AppCompatActivity {
     final int SELECT_PICTURE = 200;
     String category;
 
-
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        name = category;
         getSupportActionBar().setBackgroundDrawable( new ColorDrawable(Color.parseColor("#2D423D")));
 
         Bundle extras = this.getIntent().getExtras();
         category = new String();
         img = (ImageView) findViewById(R.id.addImage);
-        EditText name = (EditText) findViewById(R.id.prodName);
-        EditText description = (EditText) findViewById(R.id.breifDescription);
         TextView quest1 = (TextView) findViewById(R.id.seqQues1);
         EditText ans1 = (EditText) findViewById(R.id.seqAns1);
         TextView quest2 = (TextView) findViewById(R.id.seqQues2);
         EditText ans2 = (EditText) findViewById(R.id.seqAns2);
-        TextView quest3 = (TextView) findViewById(R.id.seqQues3);
-        EditText ans3 = (EditText) findViewById(R.id.seqAns3);
         Button submitBut = (Button) findViewById(R.id.submitAddForm);
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -97,11 +94,6 @@ public class addItem extends AppCompatActivity {
                     case 0:
                     {
                         category = "";
-                        name.setHint("");
-                        name.setEnabled(false);
-
-                        description.setHint("");
-                        description.setEnabled(false);
 
                         quest1.setText("");
                         quest1.setEnabled(false);
@@ -119,14 +111,6 @@ public class addItem extends AppCompatActivity {
                         ans2.setEnabled(false);
                         ans2.setHint("");
 
-                        quest3.setText("");
-                        quest3.setEnabled(false);
-                        quest3.setTextColor(getResources().getColor(R.color.white));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(false);
-                        ans3.setHint("");
-
                         submitBut.setEnabled(false);
                         submitBut.setText("");
                         submitBut.setBackgroundColor(Color.WHITE);
@@ -141,19 +125,13 @@ public class addItem extends AppCompatActivity {
                     {
                         category = "IDs";
 
-                        name.setHint("First Name on ID");
-                        name.setEnabled(true);
-
-                        description.setHint("Write a brief Description about the Product");
-                        description.setEnabled(true);
-
-                        quest1.setText("What is the name on the ID?");
+                        quest1.setText("What is the first name on the ID?");
                         quest1.setEnabled(true);
                         quest1.setTextColor(getResources().getColor(R.color.black));
                         quest1.setBackgroundColor(getResources().getColor(R.color.white));
 
                         ans1.setEnabled(true);
-                        ans1.setHint("Name on ID");
+                        ans1.setHint("First Name on ID");
 
                         quest2.setText("What is the ID number?");
                         quest2.setEnabled(true);
@@ -162,14 +140,6 @@ public class addItem extends AppCompatActivity {
 
                         ans2.setEnabled(true);
                         ans2.setHint("SID");
-
-                        quest3.setText("When was the ID found?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -184,11 +154,6 @@ public class addItem extends AppCompatActivity {
                     case 2:
                     {
                         category = "Keys";
-                        name.setHint("Product Name");
-                        name.setEnabled(true);
-
-                        description.setHint("Write a brief Description about the Product");
-                        description.setEnabled(true);
 
                         quest1.setText("How many keys does it have?");
                         quest1.setEnabled(true);
@@ -206,14 +171,6 @@ public class addItem extends AppCompatActivity {
                         ans2.setEnabled(true);
                         ans2.setHint("Keychain");
 
-                        quest3.setText("When were the keys found?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
-
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
                         submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
@@ -226,11 +183,6 @@ public class addItem extends AppCompatActivity {
                     case 3:
                     {
                         category = "Technology";
-                        name.setHint("Product Name");
-                        name.setEnabled(true);
-
-                        description.setHint("Write a brief Description about the Product");
-                        description.setEnabled(true);
 
                         quest1.setText("What is the model of the Product?");
                         quest1.setEnabled(true);
@@ -248,14 +200,6 @@ public class addItem extends AppCompatActivity {
                         ans2.setEnabled(true);
                         ans2.setHint("Unique Features");
 
-                        quest3.setText("When was the product found?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
-
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
                         submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
@@ -268,11 +212,6 @@ public class addItem extends AppCompatActivity {
                     default:
                     {
                         category = "Other";
-                        name.setHint("Product Name");
-                        name.setEnabled(true);
-
-                        description.setHint("Write a brief Description about the Product");
-                        description.setEnabled(true);
 
                         quest1.setText("What is the Product?");
                         quest1.setEnabled(true);
@@ -290,13 +229,6 @@ public class addItem extends AppCompatActivity {
                         ans2.setEnabled(true);
                         ans2.setHint("Product Color");
 
-                        quest3.setText("When was the product lost?");
-                        quest3.setEnabled(true);
-                        quest3.setTextColor(getResources().getColor(R.color.black));
-                        quest3.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans3.setEnabled(true);
-                        ans3.setHint("When");
 
                         submitBut.setEnabled(true);
                         submitBut.setText(R.string.submit);
@@ -314,15 +246,11 @@ public class addItem extends AppCompatActivity {
         submitBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String prodName = name.getText().toString();
-                String desc = description.getText().toString();
                 String q1 = ans1.getText().toString();
                 String q2 = ans2.getText().toString();
-                String q3 = ans3.getText().toString();
 //                String imageString = selectedImageUri.toString();
 
-                if(prodName.equals("") || q1.equals("") || desc.equals("") ||
-                        q2.equals("") || q3.equals("")  )
+                if( q1.equals("") || q2.equals(""))
                 {
                     Toast.makeText(addItem.this, "Please fill out all the questions",
                             Toast.LENGTH_SHORT).show();
@@ -369,17 +297,13 @@ public class addItem extends AppCompatActivity {
                         HttpURLConnection con = (HttpURLConnection) url.openConnection();
                         con.setRequestMethod("POST");
                         con.setDoInput(true);
-                        Log.println(Log.DEBUG, prodName, "PRODUCT NAME");
-                        Log.println(Log.DEBUG, desc, "DESCRIPTION");
-//                        Log.println(Log.DEBUG, imageString, "IMAGE PATH");
-                        Log.println(Log.DEBUG, extras.getString("userID"), "SID");
-                        Log.println(Log.DEBUG, category, "CATEGORY");
+
                         Bitmap bitmap=((BitmapDrawable)img.getDrawable()).getBitmap();
                         String imgPath = saveToInternalStorage(bitmap,(category+(imageNumber+1)))+"/"+ category+(imageNumber+1);
 
                         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                                 new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
-                        writer.write(("name=" + prodName + "&description=" + desc+
+                        writer.write(("name=" + name + "&description=" + "x"+
                                 "&image=" + imgPath + "&SID=" + extras.getString("userID")+
                                 "&category=" +category));
                         writer.flush();
@@ -393,7 +317,7 @@ public class addItem extends AppCompatActivity {
                         con2.setDoInput(true);
                         BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
                                 new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
-                        writer2.write(("answer1=" + q1 + "&answer2=" + q2+ "&answer3=" + q3));
+                        writer2.write(("answer1=" + q1 + "&answer2=" + q2+ "&answer3=" + "x"));
                         writer2.flush();
                         writer2.close();
                         con2.getResponseCode();
