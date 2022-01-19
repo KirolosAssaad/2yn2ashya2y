@@ -51,8 +51,8 @@ public class addItem extends AppCompatActivity {
     Uri selectedImageUri;
     final int SELECT_PICTURE = 200;
     String category;
-
     String name;
+    boolean imgAdded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,6 @@ public class addItem extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Categories2, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         img.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +79,6 @@ public class addItem extends AppCompatActivity {
             public void onClick(View v) {
                 Intent Intent= new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(Intent,1888);
-//                imageChooser();
             }
         });
 
@@ -264,12 +262,11 @@ public class addItem extends AppCompatActivity {
                 String q2 = ans2.getText().toString();
 //                String imageString = selectedImageUri.toString();
 
-                if( q1.equals("") || q2.equals(""))
+                if( q1.equals("") || q2.equals("") || !imgAdded)
                 {
                     Toast.makeText(addItem.this, "Please fill out all the questions",
                             Toast.LENGTH_SHORT).show();
                     return;
-
                 }
                 else
                 {
@@ -412,7 +409,7 @@ public class addItem extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
-
+                imgAdded = true;
             } }
     }
 

@@ -58,4 +58,12 @@ public class categories extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(categories.this, choicesActivity.class);
+        intent.putExtras(getIntent().getExtras());
+        startActivity(intent);
+    }
 }

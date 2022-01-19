@@ -93,4 +93,12 @@ public class ContactInfo extends AppCompatActivity {
                                 }
         );
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(ContactInfo.this, Items.class);
+        intent.putExtras(getIntent().getExtras());
+        startActivity(intent);
+    }
 }

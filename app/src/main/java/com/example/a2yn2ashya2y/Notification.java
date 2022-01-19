@@ -43,13 +43,8 @@ public class Notification extends AppCompatActivity {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.Categories2, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         ListView list_view = (ListView) findViewById(R.id.notificationItemsList);
-
-        String[] itemName = null;
-
-        int itemImage;
 
         try {
             URL url = new URL("http://192.168.100.39:3000/notify");
@@ -71,16 +66,6 @@ public class Notification extends AppCompatActivity {
 
             Log.println(Log.DEBUG, decodedString, "QUERY RESULT2");
             Log.println(Log.DEBUG, jArray.toString(), "QUERY RESULT");
-//            itemName = new String[jArray.length()];
-//            for(int i=0;i<itemName.length;i++)
-//            {
-//                JSONObject jObj = jArray.getJSONObject(i);
-//                Log.println(Log.DEBUG, jObj.getString("name"), "name");
-//
-//                itemName[i] = jObj.getString("name");
-//
-//
-//            }
 
             Log.println(Log.DEBUG, decodedString, "Query Result");
             if(decodedString.equals("[]"))
@@ -195,16 +180,14 @@ public class Notification extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent intent = new Intent(Notification.this, choicesActivity.class);
-//        startActivity(intent);
-//        // do something here
-//        // or perhaps nothing at all
-//    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Notification.this, choicesActivity.class);
+        intent.putExtras(getIntent().getExtras());
+        startActivity(intent);
+    }
 
 }

@@ -102,5 +102,13 @@ public class Items extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Items.this, categories.class);
+        intent.putExtras(getIntent().getExtras());
+        startActivity(intent);
+    }
+
 
 }

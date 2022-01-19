@@ -206,6 +206,13 @@ public class Verification extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Verification.this, Items.class);
+        intent.putExtras(getIntent().getExtras());
+        startActivity(intent);
     }
 }

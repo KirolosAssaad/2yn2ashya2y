@@ -45,8 +45,6 @@ import java.util.Base64.Encoder;
 
 public class notificationAdapter extends ArrayAdapter<String> {
     ViewHolder holder;
-    //    String[] ItemsName;
-//    int Images;
     Context context;
     JSONArray allOBJS;
 
@@ -87,7 +85,6 @@ public class notificationAdapter extends ArrayAdapter<String> {
 
         JSONObject object = new JSONObject();
 
-
         try{
             object = allOBJS.getJSONObject(position);
             holder.item_name.setText(object.getString("category"));
@@ -115,7 +112,6 @@ public class notificationAdapter extends ArrayAdapter<String> {
                     writer.close();
 
                     con.getResponseCode();
-//                    remove(String.valueOf(position));
 
                     Intent intent = new Intent(context, Notification.class);
                     intent.putExtras(extras);

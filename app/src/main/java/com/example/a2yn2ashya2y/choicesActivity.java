@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +25,7 @@ public class choicesActivity extends AppCompatActivity {
         Button add = (Button) findViewById(R.id.add);
         Button find = (Button) findViewById(R.id.find);
         Button report = (Button) findViewById(R.id.report);
+        TextView logout = (TextView) findViewById(R.id.logout);
 
         Bundle extras = this.getIntent().getExtras();
 
@@ -64,11 +66,27 @@ public class choicesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(choicesActivity.this,addItem.class);
-                Bundle secExt = new Bundle();
                 intent.putExtras(extras);
                 startActivity(intent);
             }
         });
 
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(choicesActivity.this,MainActivity.class);
+                intent.putExtras(extras);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 }
