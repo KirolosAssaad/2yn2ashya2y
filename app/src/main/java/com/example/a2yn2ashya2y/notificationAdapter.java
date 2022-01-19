@@ -103,7 +103,7 @@ public class notificationAdapter extends ArrayAdapter<String> {
             @Override
             public void onClick(View view) {
                 try {
-                    URL url = new URL("http://192.168.1.30:3000/deleteNotify");
+                    URL url = new URL("http://192.168.100.39:3000/deleteNotify");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     con.setRequestMethod("POST");
                     con.setDoOutput(true);

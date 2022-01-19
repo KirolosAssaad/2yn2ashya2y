@@ -35,7 +35,7 @@ public class Notification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-         jArray = new JSONArray();
+        jArray = new JSONArray();
 
         adapter2 = new notificationAdapter(Notification.this, jArray);
 
@@ -52,7 +52,7 @@ public class Notification extends AppCompatActivity {
         int itemImage;
 
         try {
-            URL url = new URL("http://192.168.1.30:3000/notify");
+            URL url = new URL("http://192.168.100.39:3000/notify");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -67,7 +67,7 @@ public class Notification extends AppCompatActivity {
             String decodedString = in.readLine();
             con.getResponseCode();
 
-             jArray = new JSONArray(decodedString);
+            jArray = new JSONArray(decodedString);
 
             Log.println(Log.DEBUG, decodedString, "QUERY RESULT2");
             Log.println(Log.DEBUG, jArray.toString(), "QUERY RESULT");
@@ -154,39 +154,39 @@ public class Notification extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try
-                    {
-                        URL url = new URL("http://192.168.1.30:3000/addNotify");
-                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                        con.setRequestMethod("POST");
-                        con.setDoOutput(true);
-                        con.setDoInput(true);
-                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                                new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
-                        writer.write(("phonenum="+extras.getString("userNumber")+"&category="+category));
-                        writer.flush();
-                        writer.close();
-                        con.getResponseCode();
+                {
+                    URL url = new URL("http://192.168.100.39:3000/addNotify");
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                            new BufferedOutputStream(con.getOutputStream()), StandardCharsets.UTF_8));
+                    writer.write(("phonenum="+extras.getString("userNumber")+"&category="+category));
+                    writer.flush();
+                    writer.close();
+                    con.getResponseCode();
 
 
-                        URL url2 = new URL("http://192.168.1.30:3000/notify");
-                        HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
-                        con2.setRequestMethod("POST");
-                        con2.setDoOutput(true);
-                        con2.setDoInput(true);
-                        BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
-                                new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
-                        writer2.write(("phonenum="+extras.getString("userNumber")));
-                        writer2.flush();
-                        writer2.close();
+                    URL url2 = new URL("http://192.168.100.39:3000/notify");
+                    HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
+                    con2.setRequestMethod("POST");
+                    con2.setDoOutput(true);
+                    con2.setDoInput(true);
+                    BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(
+                            new BufferedOutputStream(con2.getOutputStream()), StandardCharsets.UTF_8));
+                    writer2.write(("phonenum="+extras.getString("userNumber")));
+                    writer2.flush();
+                    writer2.close();
 
-                        BufferedReader in2 = new BufferedReader(new InputStreamReader(con2.getInputStream()));
-                        String decodedString2 = in2.readLine();
-                        con2.getResponseCode();
-                        JSONArray x = new JSONArray(decodedString2);
+                    BufferedReader in2 = new BufferedReader(new InputStreamReader(con2.getInputStream()));
+                    String decodedString2 = in2.readLine();
+                    con2.getResponseCode();
+                    JSONArray x = new JSONArray(decodedString2);
 
 
-                        adapter2 = new notificationAdapter(Notification.this, x);
-                        list_view.setAdapter(adapter2);
+                    adapter2 = new notificationAdapter(Notification.this, x);
+                    list_view.setAdapter(adapter2);
 
                 }
                 catch (Exception e)
@@ -197,4 +197,14 @@ public class Notification extends AppCompatActivity {
         });
 
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(Notification.this, choicesActivity.class);
+//        startActivity(intent);
+//        // do something here
+//        // or perhaps nothing at all
+//    }
+
 }

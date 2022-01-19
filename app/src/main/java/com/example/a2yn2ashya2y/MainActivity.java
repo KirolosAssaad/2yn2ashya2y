@@ -28,6 +28,8 @@ import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
 
+    //172.20.10.4
+    //192.168.100.39
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 String getPassworrd = password.getText().toString();
 
                 try {
-                    URL url = new URL("http://192.168.1.30:3000/userVerify");
+                    URL url = new URL("http://192.168.100.39:3000/userVerify");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     con.setRequestMethod("POST");
                     con.setDoOutput(true);

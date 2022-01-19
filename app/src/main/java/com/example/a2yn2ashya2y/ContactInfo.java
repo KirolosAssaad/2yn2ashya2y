@@ -38,7 +38,7 @@ public class ContactInfo extends AppCompatActivity {
 
 
         try {
-            URL url = new URL("http://192.168.1.30:3000/findFinder");
+            URL url = new URL("http://192.168.100.39:3000/findFinder");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -65,32 +65,32 @@ public class ContactInfo extends AppCompatActivity {
 
 
         call.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:"+jObj.getString("phonenum")));
-                        startActivity(intent);
+                                    @Override
+                                    public void onClick(View view) {
+                                        try {
+                                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                                            intent.setData(Uri.parse("tel:"+jObj.getString("phonenum")));
+                                            startActivity(intent);
 
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
         );
 
         TextView done = (TextView) findViewById(R.id.done);
 
         done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent2 = new Intent(ContactInfo.this, choicesActivity.class);
-                intent2.putExtras(extras);
-                startActivity(intent2);
-            }
-        }
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent2 = new Intent(ContactInfo.this, choicesActivity.class);
+                                        intent2.putExtras(extras);
+                                        startActivity(intent2);
+                                    }
+                                }
         );
     }
 }

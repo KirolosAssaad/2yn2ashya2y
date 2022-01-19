@@ -40,7 +40,7 @@ public class report extends AppCompatActivity {
         int itemImage;
 
         try {
-            URL url = new URL("http://192.168.1.30:3000/foundFetch");
+            URL url = new URL("http://192.168.100.39:3000/foundFetch");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);

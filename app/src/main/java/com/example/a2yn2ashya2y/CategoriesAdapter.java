@@ -59,5 +59,5 @@ public class CategoriesAdapter extends ArrayAdapter<String> {
 
         return convertView; //update views
     }
-    
+
 }

@@ -42,101 +42,101 @@ public class Verification extends AppCompatActivity {
         String catengoryName = getIntent().getExtras().getString("Categories");
 
         TextView quest1 = (TextView) findViewById(R.id.seqQues1);
-         ans1 = (EditText) findViewById(R.id.seqAns1);
+        ans1 = (EditText) findViewById(R.id.seqAns1);
         TextView quest2 = (TextView) findViewById(R.id.seqQues2);
-         ans2 = (EditText) findViewById(R.id.seqAns2);
+        ans2 = (EditText) findViewById(R.id.seqAns2);
         Button submitBut = (Button) findViewById(R.id.submitAddForm);
 
         switch (catengoryName){
-                case "IDs":
-                    quest1.setText("What is the name on the ID?");
-                    quest1.setEnabled(true);
-                    quest1.setTextColor(getResources().getColor(R.color.black));
-                    quest1.setBackgroundColor(getResources().getColor(R.color.white));
+            case "IDs":
+                quest1.setText("What is the name on the ID?");
+                quest1.setEnabled(true);
+                quest1.setTextColor(getResources().getColor(R.color.black));
+                quest1.setBackgroundColor(getResources().getColor(R.color.white));
 
-                    ans1.setEnabled(true);
-                    ans1.setHint("Name on ID");
+                ans1.setEnabled(true);
+                ans1.setHint("Name on ID");
 
-                    quest2.setText("What is the ID number?");
-                    quest2.setEnabled(true);
-                    quest2.setTextColor(getResources().getColor(R.color.black));
-                    quest2.setBackgroundColor(getResources().getColor(R.color.white));
+                quest2.setText("What is the ID number?");
+                quest2.setEnabled(true);
+                quest2.setTextColor(getResources().getColor(R.color.black));
+                quest2.setBackgroundColor(getResources().getColor(R.color.white));
 
-                    ans2.setEnabled(true);
-                    ans2.setHint("SID");
-
-
-                    submitBut.setEnabled(true);
-                    submitBut.setText(R.string.submit);
-                    submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
-                    break;
-                case "Keys":
-                        quest1.setText("How many keys does it have?");
-                        quest1.setEnabled(true);
-                        quest1.setTextColor(getResources().getColor(R.color.black));
-                        quest1.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans1.setEnabled(true);
-                        ans1.setHint("Number of keys");
-
-                        quest2.setText("Does it have a keychain? If so, what is on it");
-                        quest2.setEnabled(true);
-                        quest2.setTextColor(getResources().getColor(R.color.black));
-                        quest2.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans2.setEnabled(true);
-                        ans2.setHint("Keychain");
-
-                        submitBut.setEnabled(true);
-                        submitBut.setText(R.string.submit);
-                        submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
-
-                    break;
-                case "Technology":
-                        quest1.setText("What is the model of the Product?");
-                        quest1.setEnabled(true);
-                        quest1.setTextColor(getResources().getColor(R.color.black));
-                        quest1.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans1.setEnabled(true);
-                        ans1.setHint("Product Model");
-
-                        quest2.setText("Does it have any unique features?");
-                        quest2.setEnabled(true);
-                        quest2.setTextColor(getResources().getColor(R.color.black));
-                        quest2.setBackgroundColor(getResources().getColor(R.color.white));
-
-                        ans2.setEnabled(true);
-                        ans2.setHint("Unique Features");
+                ans2.setEnabled(true);
+                ans2.setHint("SID");
 
 
-                        submitBut.setEnabled(true);
-                        submitBut.setText(R.string.submit);
-                        submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
+                submitBut.setEnabled(true);
+                submitBut.setText(R.string.submit);
+                submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
+                break;
+            case "Keys":
+                quest1.setText("How many keys does it have?");
+                quest1.setEnabled(true);
+                quest1.setTextColor(getResources().getColor(R.color.black));
+                quest1.setBackgroundColor(getResources().getColor(R.color.white));
 
-                    break;
-                case "Other":
-                        quest1.setText("What is the Product?");
-                        quest1.setEnabled(true);
-                        quest1.setTextColor(getResources().getColor(R.color.black));
-                        quest1.setBackgroundColor(getResources().getColor(R.color.white));
+                ans1.setEnabled(true);
+                ans1.setHint("Number of keys");
 
-                        ans1.setEnabled(true);
-                        ans1.setHint("Product Model");
+                quest2.setText("Does it have a keychain? If so, what is on it");
+                quest2.setEnabled(true);
+                quest2.setTextColor(getResources().getColor(R.color.black));
+                quest2.setBackgroundColor(getResources().getColor(R.color.white));
 
-                        quest2.setText("hat is the color of the product?");
-                        quest2.setEnabled(true);
-                        quest2.setTextColor(getResources().getColor(R.color.black));
-                        quest2.setBackgroundColor(getResources().getColor(R.color.white));
+                ans2.setEnabled(true);
+                ans2.setHint("Keychain");
 
-                        ans2.setEnabled(true);
-                        ans2.setHint("Product Color");
+                submitBut.setEnabled(true);
+                submitBut.setText(R.string.submit);
+                submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
 
-                        submitBut.setEnabled(true);
-                        submitBut.setText(R.string.submit);
-                        submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
+                break;
+            case "Technology":
+                quest1.setText("What is the model of the Product?");
+                quest1.setEnabled(true);
+                quest1.setTextColor(getResources().getColor(R.color.black));
+                quest1.setBackgroundColor(getResources().getColor(R.color.white));
 
-                    break;
+                ans1.setEnabled(true);
+                ans1.setHint("Product Model");
+
+                quest2.setText("Does it have any unique features?");
+                quest2.setEnabled(true);
+                quest2.setTextColor(getResources().getColor(R.color.black));
+                quest2.setBackgroundColor(getResources().getColor(R.color.white));
+
+                ans2.setEnabled(true);
+                ans2.setHint("Unique Features");
+
+
+                submitBut.setEnabled(true);
+                submitBut.setText(R.string.submit);
+                submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
+
+                break;
+            case "Other":
+                quest1.setText("What is the Product?");
+                quest1.setEnabled(true);
+                quest1.setTextColor(getResources().getColor(R.color.black));
+                quest1.setBackgroundColor(getResources().getColor(R.color.white));
+
+                ans1.setEnabled(true);
+                ans1.setHint("Product Model");
+
+                quest2.setText("hat is the color of the product?");
+                quest2.setEnabled(true);
+                quest2.setTextColor(getResources().getColor(R.color.black));
+                quest2.setBackgroundColor(getResources().getColor(R.color.white));
+
+                ans2.setEnabled(true);
+                ans2.setHint("Product Color");
+
+                submitBut.setEnabled(true);
+                submitBut.setText(R.string.submit);
+                submitBut.setBackgroundColor(Color.parseColor("#2D423D"));
+
+                break;
         }
 
         submitBut.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +146,7 @@ public class Verification extends AppCompatActivity {
                 String ID = getIntent().getExtras().getString("objID");
 
                 try{
-                    URL url = new URL("http://192.168.1.30:3000/answerFetch");
+                    URL url = new URL("http://192.168.100.39:3000/answerFetch");
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     con.setRequestMethod("POST");
                     con.setDoOutput(true);
@@ -175,7 +175,7 @@ public class Verification extends AppCompatActivity {
                     if(ans1.getText().toString().toLowerCase().equals(answer1) &&
                             ans2.getText().toString().toLowerCase().equals(answer2))
                     {
-                        URL url2 = new URL("http://192.168.1.30:3000/markFound");
+                        URL url2 = new URL("http://192.168.100.39:3000/markFound");
                         HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
                         con2.setRequestMethod("POST");
                         con2.setDoOutput(true);
@@ -202,11 +202,6 @@ public class Verification extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
-
-
-
-
-
 
 
             }

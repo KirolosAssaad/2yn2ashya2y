@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -273,7 +274,7 @@ public class addItem extends AppCompatActivity {
                 else
                 {
                     try {
-                        URL url4 = new URL("http://192.168.1.30:3000/getLastObj");
+                        URL url4 = new URL("http://192.168.100.39:3000/getLastObj");
                         HttpURLConnection con4 = (HttpURLConnection) url4.openConnection();
                         con4.setRequestMethod("POST");
                         con4.setDoInput(true);
@@ -306,7 +307,7 @@ public class addItem extends AppCompatActivity {
 
 
 
-                        URL url = new URL("http://192.168.1.30:3000/addObject");
+                        URL url = new URL("http://192.168.100.39:3000/addObject");
                         HttpURLConnection con = (HttpURLConnection) url.openConnection();
                         con.setRequestMethod("POST");
                         con.setDoInput(true);
@@ -324,7 +325,7 @@ public class addItem extends AppCompatActivity {
 
                         con.getResponseCode();
 
-                        URL url2 = new URL("http://192.168.1.30:3000/addAnswer");
+                        URL url2 = new URL("http://192.168.100.39:3000/addAnswer");
                         HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
                         con2.setRequestMethod("POST");
                         con2.setDoInput(true);
@@ -334,6 +335,31 @@ public class addItem extends AppCompatActivity {
                         writer2.flush();
                         writer2.close();
                         con2.getResponseCode();
+
+                        URL link = new URL("http://192.168.100.39:3000/notifyCategory");
+                        HttpURLConnection connection = (HttpURLConnection) link.openConnection();
+                        connection.setRequestMethod("POST");
+                        connection.setDoOutput(true);
+                        connection.setDoInput(true);
+                        BufferedWriter buffer = new BufferedWriter(new OutputStreamWriter(
+                                new BufferedOutputStream(connection.getOutputStream()), StandardCharsets.UTF_8));
+                        buffer.write(("category="+ category));
+                        buffer.flush();
+                        buffer.close();
+
+                        BufferedReader bufferIn = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        String StringDecoded = bufferIn.readLine();
+                        connection.getResponseCode();
+
+                        JSONArray numbers = new JSONArray(StringDecoded);
+                        for (int i =0 ; i<numbers.length(); i++){
+                            JSONObject phone = numbers.getJSONObject(i);
+                            SmsManager smsManager = SmsManager.getDefault(); // send message to mobile
+                            smsManager.sendTextMessage(phone.getString("phonenum"), null, "There is an item in "+category+" that matches the description of the item you have lost", null, null);
+                        }
+
+
+                        Log.d("category" , StringDecoded);
                     }
                     catch (Exception e)
                     {
@@ -379,15 +405,15 @@ public class addItem extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-        if(requestCode == 1888) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            Log.println(Log.DEBUG, bitmap.toString(), "the bitmap");
-            img.setImageBitmap(bitmap);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
+            if(requestCode == 1888) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                Log.println(Log.DEBUG, bitmap.toString(), "the bitmap");
+                img.setImageBitmap(bitmap);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
 
-        } }
+            } }
     }
 
 }
